@@ -1,0 +1,17 @@
+#General
+name: iBaby
+main: com.iBaby.iBaby
+version: 0.1
+commands:
+     babysit:
+       description: Manages your babysitter
+       usage: /babysit help
+depend: 
+  - Vault
+  - EntityWrapper
+#Generator
+description: Use Iron Golems as Babysitters
+maintainer: steffengy
+authors: [steffengy]
+# Add superperms !!
+load: startup

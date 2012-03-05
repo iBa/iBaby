@@ -1,0 +1,155 @@
+package com.iBaby;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
+
+import net.minecraft.server.Chunk;
+import net.minecraft.server.Entity;
+import net.minecraft.server.World;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import com.EntityWrapper.CraftEntityWrapper;
+import com.EntityWrapper.EntityWrapper;
+import com.iBaby.reflection.EntityIronBaby;
+
+/**
+ * The IBaby Main Class
+ * @author steffengy
+ *
+ */
+
+public class iBaby extends JavaPlugin {
+	public void onEnable() {
+		 //Some hack(s)
+		    //Register entity :)
+		 EntityWrapper.registerEntityType(EntityIronBaby.class, 100, 99);
+		  
+		 log("["+getDescription().getName() + "] Now beeing badboy and register Reflection stuff!");
+		 
+		getServer().getPluginManager().registerEvents(new iBabyListener(), this);
+		log("["+getDescription().getName()+"] "+ getDescription().getVersion() + " loaded!");
+	}
+	public void onDisable() {
+		log("["+getDescription().getName()+"] "+ getDescription().getVersion() + " loaded!");
+	}
+	/**
+	 * Write something into log
+	 * @param s The String 2 write
+	 */
+	public void log(String s) {
+		Logger.getLogger("Minecraft").info(s);
+	}
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) { 	
+		String sub = args[0];
+		List<String> arggs = new ArrayList<String>(Arrays.asList(args));
+		if(arggs.size() > 0) arggs.remove(0);
+		String[] arguments = arggs.size() > 0 ? arggs.toArray(new String[0]) : new String[0];
+		CommandHandler.handleCommand(sender,  cmd.getName(), sub, arguments);
+		return true; 
+	}
+	/**
+	 * Creates a iron Baby at a location with an owner
+	 * @param location The location
+	 * @param name The player
+	 */
+	public static EntityIronBaby spawnIronBaby(Location location, Player player) {
+		EntityIronBaby ib = new EntityIronBaby(((CraftWorld)location.getWorld()).getHandle(), player.getName());
+		ib.getBukkitEntity().teleport(location);
+		((CraftWorld)location.getWorld()).getHandle().addEntity(ib);
+		return ib;
+	}
+	/**
+	 * Gets a list of all iron babys in world
+	 * @param world The world
+	 * @return List<EntityIronBaby>
+	 */
+	public static List<EntityIronBaby> getIronBabys(World world) {
+		ArrayList<EntityIronBaby> entities = new ArrayList<EntityIronBaby>();
+		for (Object entity: world.entityList) {
+            if (entity instanceof net.minecraft.server.Entity) {
+            	if(entity instanceof EntityIronBaby) {
+            		entities.add((EntityIronBaby)entity);
+            	}
+            }
+		}
+        return entities;
+	}
+	/**
+	 * Gets a list of all iron babys in world by player
+	 * @param world The world
+	 * @param player The playername Case sensitive
+	 * @return List<EntityIronBaby>
+	 */
+	public static List<EntityIronBaby> getIronBabys(World world, String player) {
+		ArrayList<EntityIronBaby> entities = new ArrayList<EntityIronBaby>();
+		for(EntityIronBaby entity : getIronBabys(world)) {
+			if(entity.getOwner().equals(player)) entities.add(entity);
+		}
+		return entities;
+	}
+	/**
+	 * Gets a list of all iron babys
+	 * @return List<EntityIronBaby>
+	 */
+	public static List<EntityIronBaby> getIronBabys() {
+		ArrayList<EntityIronBaby> entities = new ArrayList<EntityIronBaby>();
+		for(org.bukkit.World w : Bukkit.getWorlds()) {
+			entities.addAll(getIronBabys(((CraftWorld)w).getHandle()));
+		}
+		return entities;
+	}
+	/**
+	 * Gets a list of all iron babys by player
+	 * @param p The playername Case sensitive1
+	 * @return List<EntityIronBaby>
+	 */
+	public static List<EntityIronBaby> getIronBabys(String p) { 
+		ArrayList<EntityIronBaby> entities = new ArrayList<EntityIronBaby>();
+		for(org.bukkit.World w : Bukkit.getWorlds()) {
+			entities.addAll(getIronBabys(((CraftWorld)w).getHandle(), p));
+		}
+		return entities;
+	}
+	/**
+	 * Gets a list of all iron babys in chunk
+	 * @param chunk The chunk
+	 * @return
+	 */
+	public static ArrayList<EntityIronBaby> getIronBabys(Chunk chunk) {
+		ArrayList<EntityIronBaby> entities = new ArrayList<EntityIronBaby>();
+		for(List<Entity> entis : chunk.entitySlices) {
+				for(Entity enty : entis) {
+					System.out.println(enty.getClass().getName());
+					if(enty instanceof EntityIronBaby) {
+						entities.add((EntityIronBaby) enty);
+					}
+				}
+		}
+		return entities;
+	}
+	/**
+	 * Gets a list of all iron babys in a chunk by player
+	 * @param chunk
+	 * @param player
+	 * @return
+	 */
+	public static ArrayList<EntityIronBaby> getIronBabys(Chunk chunk, String player) {
+		ArrayList<EntityIronBaby> entities = new ArrayList<EntityIronBaby>();
+		for(List<Entity> entis : chunk.entitySlices) {
+			if(entis instanceof EntityIronBaby) {
+				if(((EntityIronBaby)entis).getOwner().equals(player)) 
+					entities.add((EntityIronBaby) entis);
+			}
+		}
+		return entities;
+	}
+}
