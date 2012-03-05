@@ -21,8 +21,8 @@ public class CommandHandler {
 				return;
 			}
 			try {
-				if(s.preHandle(sender)) {
-					s.handle(sender, args);
+				if(s.preHandle(sender, args)) {
+					s.handle(sender);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -7,8 +7,9 @@ commands:
        description: Manages your babysitter
        usage: /babysit help
 depend: 
-  - Vault
   - EntityWrapper
+softdepend:
+  - Vault
 #Generator
 description: Use Iron Golems as Babysitters
 maintainer: steffengy

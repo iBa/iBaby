@@ -5,8 +5,13 @@ import org.bukkit.command.CommandSender;
 import com.iBaby.Command;
 
 public class HelpCommand extends Command {
-	
-	public void handle(CommandSender sender, String[] args) {
+	public HelpCommand() {
+		requiresPlayer = false;
+	}
+	/**
+	 * Displays a list of all commands
+	 */
+	public void handle(CommandSender sender) {
 		
 	}
 	

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.economy.Economy;
 import net.minecraft.server.Chunk;
 import net.minecraft.server.Entity;
 import net.minecraft.server.World;
@@ -17,6 +18,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.EntityWrapper.EntityWrapper;
@@ -33,6 +35,7 @@ public class iBaby extends JavaPlugin {
 	 * Containing the File object, which belongs to config.yml
 	 */
 	private static File configFile = null;
+	public static Economy economy = null;
 	
 	public void onEnable() {
 		    //Register entity :)
@@ -50,6 +53,14 @@ public class iBaby extends JavaPlugin {
 			}
 			Configuration.createDefaultOne(configFile);
 		}
+		// Try to fetch economy module of vault
+		if(Configuration.enablePrice) {
+			if(!setupEconomy()) {
+				log("deactivation price support because economy failed to load. You have vault running?");
+				Configuration.enablePrice = false;
+			}
+		}
+		// Loaded successfully
 		log(getDescription().getVersion() + " loaded!");
 	}
 	
@@ -82,6 +93,17 @@ public class iBaby extends JavaPlugin {
 		((CraftWorld)location.getWorld()).getHandle().addEntity(ib);
 		return ib;
 	}
+	
+	private Boolean setupEconomy()
+    {
+        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            economy = economyProvider.getProvider();
+        }
+
+        return (economy != null);
+    }
+	
 	/**
 	 * Gets a list of all iron babys in world
 	 * @param world The world
@@ -167,4 +189,5 @@ public class iBaby extends JavaPlugin {
 		}
 		return entities;
 	}
+	
 }
