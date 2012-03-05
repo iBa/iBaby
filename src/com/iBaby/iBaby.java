@@ -1,5 +1,7 @@
 package com.iBaby;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,6 @@ import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.EntityWrapper.CraftEntityWrapper;
 import com.EntityWrapper.EntityWrapper;
 import com.iBaby.reflection.EntityIronBaby;
 
@@ -28,25 +29,39 @@ import com.iBaby.reflection.EntityIronBaby;
  */
 
 public class iBaby extends JavaPlugin {
+	/**
+	 * Containing the File object, which belongs to config.yml
+	 */
+	private static File configFile = null;
+	
 	public void onEnable() {
-		 //Some hack(s)
 		    //Register entity :)
-		 EntityWrapper.registerEntityType(EntityIronBaby.class, 100, 99);
-		  
-		 log("["+getDescription().getName() + "] Now beeing badboy and register Reflection stuff!");
-		 
+		EntityWrapper.registerEntityType(EntityIronBaby.class, 100, 99);
 		getServer().getPluginManager().registerEvents(new iBabyListener(), this);
-		log("["+getDescription().getName()+"] "+ getDescription().getVersion() + " loaded!");
+			//Loading config
+		configFile = new File(getDataFolder(), "config.yml");
+		if(configFile.exists()) {
+			Configuration.init(configFile);
+		}else{
+			try {
+				configFile.createNewFile();
+			} catch (IOException e) {
+				log("Error while creating file config.yml!");
+			}
+			Configuration.createDefaultOne(configFile);
+		}
+		log(getDescription().getVersion() + " loaded!");
 	}
+	
 	public void onDisable() {
-		log("["+getDescription().getName()+"] "+ getDescription().getVersion() + " loaded!");
+		log(getDescription().getVersion() + " loaded!");
 	}
 	/**
 	 * Write something into log
 	 * @param s The String 2 write
 	 */
-	public void log(String s) {
-		Logger.getLogger("Minecraft").info(s);
+	public static void log(String s) {
+		Logger.getLogger("Minecraft").info("[iBaby] " + s);
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) { 	
 		String sub = args[0];
