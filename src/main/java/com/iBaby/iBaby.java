@@ -75,7 +75,7 @@ public class iBaby extends JavaPlugin {
 		Logger.getLogger("Minecraft").info("[iBaby] " + s);
 	}
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) { 	
-		String sub = args[0];
+		String sub = args.length > 0 ? args[0] : "";
 		List<String> arggs = new ArrayList<String>(Arrays.asList(args));
 		if(arggs.size() > 0) arggs.remove(0);
 		String[] arguments = arggs.size() > 0 ? arggs.toArray(new String[0]) : new String[0];

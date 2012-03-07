@@ -2,10 +2,14 @@ package com.iBaby;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import com.iBaby.commands.Param;
+import com.iBaby.commands.ParamMap;
 
 /**
  * A raw command
@@ -14,11 +18,11 @@ import org.bukkit.entity.Player;
  */
 public class Command {
 	protected HashMap<String, String> arguments = new HashMap<String, String>();
-	private HashMap<Integer, String> neededParams = new HashMap<Integer, String>();
-	private HashMap<Integer, String> optionalParams = new HashMap<Integer, String>();
+	private ParamMap<Integer, Param> Params = new ParamMap<Integer, Param>();
 	protected ArrayList<String> permissions = new ArrayList<String>();
 	protected boolean requiresPlayer = true;
 	private int i = 0;
+	private Base base;
 	
 	/**
 	 * Handle a command
@@ -52,7 +56,7 @@ public class Command {
 				return false;
 			}
 		}
-		if(args.length < neededParams.size() || (neededParams.size() + optionalParams.size()) < args.length ) {
+		if(args.length < Params.countNeeded() || (Params.size()) < args.length ) {
 			sender.sendMessage(ChatColor.RED + "Your arguments are invalid!");
 			return false;
 		}
@@ -60,13 +64,13 @@ public class Command {
 		int arg = 0;
 		int c = 0;
 		for(int i = 0; arg < args.length; i++) {
-			if(neededParams.containsKey(i)) {
+			if(Params.containsKey(i) && Params.get(i).isNeeded()) {
 				//Its a needed one so just add it
-				arguments.put(neededParams.get(i), args[arg]);
+				arguments.put(Params.get(i).getName(), args[arg]);
 				arg++;
 			}else{
-				if(optionalParams.containsKey(i) && args.length >= (neededParams.size() + 1 + c)) {
-					arguments.put(optionalParams.get(i), args[i]);
+				if(Params.containsKey(i) && args.length >= (Params.countNeeded() + 1 + c)) {
+					arguments.put(Params.get(i).getName(), args[arg]);
 					c++;
 					arg++;
 				}
@@ -80,7 +84,7 @@ public class Command {
 	 * @param name The name, with which this entry shall got later
 	 */
 	public void addParam(String name) {
-		neededParams.put(i, name);
+		Params.put(i, new Param(name, true));
 		i++;
 	}
 	/**
@@ -88,7 +92,7 @@ public class Command {
 	 * @param name The name, with which this entry shall got later
 	 */
 	public void addOptionalParam(String name) {
-		optionalParams.put(i, name);
+		Params.put(i, new Param(name, false));
 		i++;
 	}
 	
@@ -100,7 +104,44 @@ public class Command {
 	public String param(String name) {
 		if(arguments.containsKey(name))
 			return arguments.get(name);
-		return null;
+		return "";
+	}
+	/**
+	 * Set what root command was used to call this
+	 * @param root The root command
+	 */
+	public void setRoot(Base root) {
+		this.base = root;
+	}
+	/**
+	 * Gets what root command was used to call this
+	 * @param root The root command
+	 */
+	public Base getRoot() {
+		return base;
 	}
 	
+	/**
+	 * Returns the description of the Command
+	 * @return String
+	 */
+	public String getDescription() {
+		return null;
+	}
+	@SuppressWarnings("unchecked")
+	public HashMap<String, String> getArgumentMap() {
+		return (HashMap<String, String>) arguments.clone();
+	}
+	
+	/**
+	 * Gets a list of all params
+	 * @return List<Param>
+	 */
+	public ArrayList<Param> getParamList() {
+		ArrayList<Param> ret = new ArrayList<Param>();
+		for(Entry<Integer, Param> a : Params.entrySet()) {
+			ret.add(a.getValue());
+		}
+		return ret;
+	}
 }

@@ -22,4 +22,7 @@ public class Base {
 		}
 		return null;
 	}
+	public String getName() {
+		return null;
+	}
 }

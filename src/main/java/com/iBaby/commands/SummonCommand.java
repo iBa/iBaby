@@ -53,4 +53,8 @@ public class SummonCommand extends Command {
 				sender.sendMessage("You have already " + Configuration.max + " iron babysitters!");
 			}
 	}
+	
+	public String getDescription() {
+		return "Summons one or more iBabys";
+	}
 }

@@ -1,7 +1,5 @@
 package com.iBaby;
 
-import java.lang.reflect.Method;
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -21,6 +19,7 @@ public class CommandHandler {
 				return;
 			}
 			try {
+				s.setRoot(r.getCommand());
 				if(s.preHandle(sender, args)) {
 					s.handle(sender);
 				}

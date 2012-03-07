@@ -8,4 +8,7 @@ public class BabySitBase extends Base {
 		addCommand("help", new HelpCommand());
 		addCommand("summon", new SummonCommand());
 	}
+	public String getName() {
+		return "babysit";
+	}
 }
