@@ -38,6 +38,12 @@ public class iBaby extends JavaPlugin {
 	public static Economy economy = null;
 	
 	public void onEnable() {
+		if(!EntityWrapper.getInternalWrapperVersion().equals("1.2.3R0.1-0.0.1")) {
+			log("Please updated EntityWrapper!");
+			log("Disabling...");
+			getServer().getPluginManager().disablePlugin(this);
+			return;
+		}
 		    //Register entity :)
 		EntityWrapper.registerEntityType(EntityIronBaby.class, 100, 99);
 		getServer().getPluginManager().registerEvents(new iBabyListener(), this);
