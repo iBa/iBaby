@@ -41,6 +41,7 @@ public class EntityIronBaby extends EntityGolem {
 	//END
 	public int defaultCD = 8;
 	public int crazy = 0;
+	private String customName = "";
     
 	public EntityIronBaby(World world, String owner) {
 		super(world);
@@ -69,6 +70,14 @@ public class EntityIronBaby extends EntityGolem {
 	public EntityIronBaby(World world) {
 		this(world, null);
 	}
+	
+	/**
+	 * Returns the "localized" name of this
+	 */
+	@Override
+	public String getLocalizedName() {
+		return "iBaby" +  customName + " (" + owner + " ) ";
+	}
 	/**
 	 * Returns the owner
 	 * @return String
@@ -77,12 +86,32 @@ public class EntityIronBaby extends EntityGolem {
 		return owner;
 	}
 	
+	/**
+	 * Gets the custom name of this
+	 * @return String
+	 */
+	public String getName() {
+		return customName;
+	}
+	
+	/**
+	 * Sets the custom name of this
+	 * @param name String
+	 */
+	public void setName(String name) {
+		customName = name;
+	}
+	
 	public void setCrazy(boolean crazy) {
     	setCrazy(15);
     }
 	
     public void setCrazy(int ticks) {
     	crazy = ticks;
+    }
+    
+    public void randomTest() {
+    	
     }
     
     @Override
@@ -173,13 +202,14 @@ public class EntityIronBaby extends EntityGolem {
         super.b(nbttagcompound);
         nbttagcompound.setBoolean("PlayerCreated", this.n_());
         nbttagcompound.setString("Owner", this.owner);
+        nbttagcompound.setString("cName", this.customName);
     }
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
         this.b(nbttagcompound.getBoolean("PlayerCreated"));
         this.owner = nbttagcompound.getString("Owner");
-	    System.out.println("Spawned at : "+locX+","+locY+","+locZ);
+        this.customName = nbttagcompound.getString("cName");
     }
 
     public boolean a(Entity entity) {

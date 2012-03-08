@@ -19,7 +19,7 @@ public class SummonCommand extends Command {
 	public void handle(CommandSender sender) {
 			Player p = (Player) sender;
 			if(iBaby.getIronBabys(p.getName()).size() < Configuration.max) {
-				if(param("amount") != null) {
+				if(!param("amount").isEmpty()) {
 					int c = 0;
 					if(Configuration.enablePrice) {
 						double amount = Configuration.price * Integer.parseInt(param("amount"));
