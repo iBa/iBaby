@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -35,6 +36,10 @@ public class iBaby extends JavaPlugin {
 	 */
 	private static File configFile = null;
 	public static Economy economy = null;
+	/**
+	 * Containing which iBaby a player selected for a custom command
+	 */
+	public static HashMap<String, EntityIronBaby> select = new HashMap<String, EntityIronBaby>();
 	
 	public void onEnable() {
 		//Register entity :)
@@ -198,6 +203,18 @@ public class iBaby extends JavaPlugin {
 			}
 		}
 		return entities;
+	}
+	
+	/**
+	 * Returns the currently selected ibaby
+	 * @param name The name of it
+	 * @return
+	 */
+	public static EntityIronBaby getSelectedBaby(String name) {
+		if(select.containsKey(name)) {
+			return select.get(name);
+		}
+		return null;
 	}
 	
 }

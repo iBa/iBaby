@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.server.EntityFireball;
 
+import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.CraftChunk;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -14,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 import com.iBaby.reflection.CraftEntityWrapper;
 import com.iBaby.reflection.EntityIronBaby;
@@ -36,12 +38,25 @@ public class iBabyListener implements Listener {
 		}
 	}
 	// Don't let it look like that Players or the Golem can get damage by this
+	// Use damage own iBaby to select it for commands
 	@EventHandler
 	public void onEntityDamage(EntityDamageByEntityEvent event) {
 		if(event.getDamager() instanceof Fireball) {
 			EntityFireball fb = ((CraftFireball)event.getDamager()).getHandle();
 			if(fb.yield == 0 && !fb.isIncendiary && ( event.getEntity() instanceof Player || validateIronBaby(event.getEntity()))) {
 				event.setCancelled(true);
+			}
+		}
+		if(event.getDamager() instanceof Player && event.getEntity() instanceof CraftEntityWrapper) {
+			if(((CraftEntityWrapper) event.getEntity()).getHandle() instanceof EntityIronBaby) {
+				EntityIronBaby baby = (EntityIronBaby) ((CraftEntityWrapper) event.getEntity()).getHandle();
+				if(baby.getOwner().equals(((Player) event.getDamager()).getName())) {
+					iBaby.select.put(((Player) event.getDamager()).getName(), baby);
+					event.setCancelled(true);
+					((Player) event.getDamager()).sendRawMessage(ChatColor.GREEN + " Selected an iBaby as target for commands!");
+				}else{
+					((Player) event.getDamager()).sendRawMessage(ChatColor.GREEN + " NAH " + baby.getOwner() + "!="+((Player) event.getDamager()).getName());
+				}
 			}
 		}
 	}

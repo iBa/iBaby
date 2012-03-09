@@ -75,7 +75,7 @@ public class EntityIronBaby extends EntityGolem {
 	 */
 	@Override
 	public String getLocalizedName() {
-		return "iBaby" +  customName + " (" + owner + " ) ";
+		return "iBaby " +  customName + " (" + owner + " ) ";
 	}
 	/**
 	 * Returns the owner
@@ -297,7 +297,6 @@ public class EntityIronBaby extends EntityGolem {
     public boolean t() {
         return false;
     }
-    
    
     /* END Imported Stuff */
     
