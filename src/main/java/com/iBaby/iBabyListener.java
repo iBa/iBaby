@@ -15,7 +15,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
 
-import com.EntityWrapper.CraftEntityWrapper;
+import com.iBaby.reflection.CraftEntityWrapper;
 import com.iBaby.reflection.EntityIronBaby;
 /**
  * The listener of iBaby

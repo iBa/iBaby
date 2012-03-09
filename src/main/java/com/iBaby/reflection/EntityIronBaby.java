@@ -11,7 +11,6 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.entity.CraftEntity;
 
-import com.EntityWrapper.CraftEntityWrapper;
 
 import net.minecraft.server.Block;
 import net.minecraft.server.DamageSource;

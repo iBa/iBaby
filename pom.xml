@@ -28,13 +28,6 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/../Vault.jar</systemPath>
         </dependency>
-        <dependency>
-            <groupId>com.EntityWrapper</groupId>
-            <artifactId>EntityWrapper</artifactId>
-            <version>0.1-SNAPSHOT</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
        <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>

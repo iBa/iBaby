@@ -6,8 +6,6 @@ commands:
      babysit:
        description: Manages your babysitter
        usage: /babysit help
-depend: 
-  - EntityWrapper
 softdepend:
   - Vault
 #Generator

@@ -2,6 +2,7 @@ package com.iBaby;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +21,6 @@ import org.bukkit.craftbukkit.CraftWorld;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.EntityWrapper.EntityWrapper;
 import com.iBaby.reflection.EntityIronBaby;
 
 /**
@@ -38,16 +37,21 @@ public class iBaby extends JavaPlugin {
 	public static Economy economy = null;
 	
 	public void onEnable() {
-		if(!EntityWrapper.getInternalWrapperVersion().equals("1.2.3R0.1-0.0.1")) {
-			log("Please updated EntityWrapper!");
-			log("Disabling...");
-			getServer().getPluginManager().disablePlugin(this);
-			return;
-		}
-		    //Register entity :)
-		EntityWrapper.registerEntityType(EntityIronBaby.class, 100, 99);
+		//Register entity :)
+		try{
+			 Class[] args = new Class[3];
+			 args[0] = Class.class;
+			 args[1] = String.class;
+			 args[2] = int.class;
+			 Method a = net.minecraft.server.EntityTypes.class.getDeclaredMethod("a", args);
+			 a.setAccessible(true);
+			 a.invoke(null, EntityIronBaby.class, "IronBabysitter", 99);
+		 }catch(Exception e) {
+			 log("failed registering EntityIronBaby at 99");
+			 e.printStackTrace();
+		 }
 		getServer().getPluginManager().registerEvents(new iBabyListener(), this);
-			//Loading config
+		//Loading config
 		configFile = new File(getDataFolder(), "config.yml");
 		if(configFile.exists()) {
 			Configuration.init(configFile);
