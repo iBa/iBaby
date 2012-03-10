@@ -5,20 +5,30 @@ import net.minecraft.server.EntityLiving;
 import net.minecraft.server.EntityMonster;
 import net.minecraft.server.EntityPlayer;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.craftbukkit.entity.CraftEntity;
+import org.bukkit.craftbukkit.entity.CraftHumanEntity;
+import org.bukkit.craftbukkit.inventory.CraftInventory;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 
 
 import net.minecraft.server.Block;
 import net.minecraft.server.DamageSource;
 import net.minecraft.server.Entity;
 import net.minecraft.server.EntityGolem;
+import net.minecraft.server.IInventory;
 import net.minecraft.server.Item;
+import net.minecraft.server.ItemStack;
 import net.minecraft.server.MathHelper;
 import net.minecraft.server.NBTTagCompound;
+import net.minecraft.server.NBTTagList;
 import net.minecraft.server.PathfinderGoalFloat;
 import net.minecraft.server.PathfinderGoalHurtByTarget;
 import net.minecraft.server.PathfinderGoalLookAtPlayer;
@@ -28,10 +38,11 @@ import net.minecraft.server.PathfinderGoalMoveTowardsTarget;
 import net.minecraft.server.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.PathfinderGoalRandomLookaround;
 import net.minecraft.server.PathfinderGoalRandomStroll;
+import net.minecraft.server.TileEntityChest;
 import net.minecraft.server.Village;
 import net.minecraft.server.World;
 
-public class EntityIronBaby extends EntityGolem {
+public class EntityIronBaby extends EntityGolem implements InventoryHolder {
 	private String owner;
 	// Imported from EntityIronGolem.java
 	private int b = 0;
@@ -41,6 +52,9 @@ public class EntityIronBaby extends EntityGolem {
 	public int defaultCD = 8;
 	public int crazy = 0;
 	private String customName = "";
+	private InventoryBaby inventory = new InventoryBaby();
+
+	public int p = -1;
     
 	public EntityIronBaby(World world, String owner) {
 		super(world);
@@ -199,6 +213,7 @@ public class EntityIronBaby extends EntityGolem {
 
     public void b(NBTTagCompound nbttagcompound) {
         super.b(nbttagcompound);
+        this.inventory.b(nbttagcompound);
         nbttagcompound.setBoolean("PlayerCreated", this.n_());
         nbttagcompound.setString("Owner", this.owner);
         nbttagcompound.setString("cName", this.customName);
@@ -206,6 +221,7 @@ public class EntityIronBaby extends EntityGolem {
 
     public void a(NBTTagCompound nbttagcompound) {
         super.a(nbttagcompound);
+        this.inventory.a(nbttagcompound);
         this.b(nbttagcompound.getBoolean("PlayerCreated"));
         this.owner = nbttagcompound.getString("Owner");
         this.customName = nbttagcompound.getString("cName");
@@ -297,6 +313,18 @@ public class EntityIronBaby extends EntityGolem {
     public boolean t() {
         return false;
     }
+
+	public int getSize() {
+		return 4;
+	}
+
+	public Inventory getInventory() {
+		return new CraftInventory(this.inventory);
+	}
+
+	public IInventory getIInventory() {
+		return this.inventory; 
+	}
    
     /* END Imported Stuff */
     

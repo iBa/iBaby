@@ -1,6 +1,7 @@
 package com.iBaby;
 
 import com.iBaby.commands.HelpCommand;
+import com.iBaby.commands.InvCommand;
 import com.iBaby.commands.NameCommand;
 import com.iBaby.commands.SummonCommand;
 
@@ -9,6 +10,7 @@ public class BabySitBase extends Base {
 		addCommand("help", new HelpCommand());
 		addCommand("summon", new SummonCommand());
 		addCommand("name", new NameCommand());
+		addCommand("inv", new InvCommand());
 	}
 	public String getName() {
 		return "babysit";
