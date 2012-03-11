@@ -57,6 +57,7 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
 	private iBabyAbilities abilities = new iBabyAbilities();
 	private InventoryBaby inventory = new InventoryBaby(this.abilities);
 	//MOB AI implementation
+	//TODO Implement Ability stuff somehow
 	private PathfinderGoalMeleeAttack meleeAttackGoal = new PathfinderGoalMeleeAttack(this, 0.42F, true);
 	private PathfinderGoalMoveTowardsTarget moveTowardsTarget = new PathfinderGoalMoveTowardsTarget(this, 0.37F, 32.0F);
 	private PathfinderFollowBaby followBabyGoal = new PathfinderFollowBaby(this, 0.3F, 5.0F, 4.0F);
@@ -207,7 +208,7 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
     }
 
     public int getMaxHealth() {
-        return 102; // 2 more health :P
+        return 102 + this.abilities.getAdditionalHealth(); // 2 more health :P
     }
 
     protected int b_(int i) {
@@ -243,7 +244,7 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
         boolean flag = entity.damageEntity(DamageSource.mobAttack(this), 7 + this.random.nextInt(15));
 
         if (flag) {
-            entity.motY += 0.521D; //custom
+            entity.motY += 0.521D + this.abilities.getAdditionalThrowHeight(); //custom
         }
 
         this.world.makeSound(this, "mob.irongolem.throw", 1.0F, 1.0F);
