@@ -68,16 +68,14 @@ public class InventoryBaby implements IInventory {
 
             if (this.items[i].count <= j) {
                 itemstack = this.items[i];
-                this.items[i] = null;
-                this.update();
+                setItem(i, null);
                 return itemstack;
             } else {
                 itemstack = this.items[i].a(j);
                 if (this.items[i].count == 0) {
-                    this.items[i] = null;
+                    setItem(i, null);
                 }
 
-                this.update();
                 return itemstack;
             }
         } else {
@@ -89,7 +87,7 @@ public class InventoryBaby implements IInventory {
         if (this.items[i] != null) {
             ItemStack itemstack = this.items[i];
 
-            this.items[i] = null;
+            setItem(i, null);
             return itemstack;
         } else {
             return null;
@@ -98,13 +96,12 @@ public class InventoryBaby implements IInventory {
 
     public void setItem(int i, ItemStack itemstack) {
         this.items[i] = itemstack;
-        //iBaby start -  validate stack
-        
-        //iBaby - end
         if (itemstack != null && itemstack.count > this.getMaxStackSize()) {
             itemstack.count = this.getMaxStackSize();
         }
-
+        //iBaby start -  validate stack
+        this.abilities.updateAbilities(itemstack, itemstack.count > 0 && itemstack != null ? true : false);
+        //iBaby - end
         this.update();
     }
 

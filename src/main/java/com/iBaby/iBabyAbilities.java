@@ -2,7 +2,13 @@ package com.iBaby;
 
 import java.util.ArrayList;
 
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
+
+import net.minecraft.server.ItemStack;
+
 import com.iBaby.abilities.Ability;
+import com.iBaby.abilities.ThrowAbility;
 
 /**
  * Class which manages all special abilities of iBabys
@@ -18,6 +24,14 @@ public class iBabyAbilities {
 	 */
 	public void addAbility(Ability ability) {
 		abilities.add(ability);
+	}
+	
+	/**
+	 * Removes an ability
+	 * @param ability instanceof Ability
+	 */
+	public void removeAbility(Ability ability) {
+		abilities.remove(ability);
 	}
 	
 	/**
@@ -76,5 +90,26 @@ public class iBabyAbilities {
 			basic += ability.getAdditionalFollowBabySpeed();
 		}
 		return basic;
+	}
+
+	/**
+	 * Match abilities - Items
+	 * @param itemstack
+	 */
+	public void updateAbilities(ItemStack itemstack, boolean add) {
+		Ability handle = null;
+		/*
+		 * @ABILITY
+		 * Feather : Throw
+		 */
+		if(new CraftItemStack(itemstack).getType() == Material.FEATHER) {
+				handle = new ThrowAbility();
+		}
+		if(handle != null) {
+			if(add)
+				this.addAbility(handle);
+			else
+				this.removeAbility(handle);
+		}
 	}
 }
