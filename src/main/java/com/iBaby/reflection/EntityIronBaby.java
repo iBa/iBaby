@@ -18,6 +18,8 @@ import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
+import com.iBaby.iBabyAbilities;
+
 
 import net.minecraft.server.Block;
 import net.minecraft.server.DamageSource;
@@ -52,8 +54,13 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
 	public int defaultCD = 8;
 	public int crazy = 0;
 	private String customName = "";
-	private InventoryBaby inventory = new InventoryBaby();
-
+	private iBabyAbilities abilities = new iBabyAbilities();
+	private InventoryBaby inventory = new InventoryBaby(this.abilities);
+	//MOB AI implementation
+	private PathfinderGoalMeleeAttack meleeAttackGoal = new PathfinderGoalMeleeAttack(this, 0.42F, true);
+	private PathfinderGoalMoveTowardsTarget moveTowardsTarget = new PathfinderGoalMoveTowardsTarget(this, 0.37F, 32.0F);
+	private PathfinderFollowBaby followBabyGoal = new PathfinderFollowBaby(this, 0.3F, 5.0F, 4.0F);
+	
 	public int p = -1;
     
 	public EntityIronBaby(World world, String owner) {
@@ -65,10 +72,10 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
         this.ak().a(true);
         this.fireProof = true;
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
-		this.goalSelector.a(1, new PathfinderGoalMeleeAttack(this, 0.42F, true));
-	    this.goalSelector.a(2, new PathfinderGoalMoveTowardsTarget(this, 0.37F, 32.0F));
+		this.goalSelector.a(1, meleeAttackGoal);
+	    this.goalSelector.a(2, moveTowardsTarget);
 	    //this.goalSelector.a(3, new PathfinderGoalMoveThroughVillage(this, 0.16F, true));
-	    this.goalSelector.a(3, new PathfinderFollowBaby(this, 0.3F, 5.0F, 4.0F));
+	    this.goalSelector.a(3, followBabyGoal);
 	    this.goalSelector.a(4, new PathfinderGoalMoveTowardsRestriction(this, 0.16F));
 	    //this.goalSelector.a(5, new PathfinderGoalOfferFlower(this));
 	    this.goalSelector.a(6, new PathfinderGoalRandomStroll(this, f));
@@ -121,10 +128,6 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
 	
     public void setCrazy(int ticks) {
     	crazy = ticks;
-    }
-    
-    public void randomTest() {
-    	
     }
     
     @Override

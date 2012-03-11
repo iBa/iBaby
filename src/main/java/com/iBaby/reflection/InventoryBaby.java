@@ -7,12 +7,19 @@ import org.bukkit.craftbukkit.entity.CraftHumanEntity;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.InventoryHolder;
 
+import com.iBaby.iBabyAbilities;
+
 import net.minecraft.server.EntityHuman;
 import net.minecraft.server.IInventory;
 import net.minecraft.server.ItemStack;
 import net.minecraft.server.NBTTagCompound;
 import net.minecraft.server.NBTTagList;
 
+/**
+ * Inventory for iBabys ; providing special abilities belonging to each different item
+ * @author steffengy
+ *
+ */
 public class InventoryBaby implements IInventory {
 
     private ItemStack[] items = new ItemStack[27]; // CraftBukkit
@@ -21,6 +28,7 @@ public class InventoryBaby implements IInventory {
     public float g;
     public int h;
     private int ticks;
+    private iBabyAbilities abilities;
 
     // CraftBukkit start
     public List<HumanEntity> transaction = new ArrayList<HumanEntity>();
@@ -42,7 +50,9 @@ public class InventoryBaby implements IInventory {
     }
     // CraftBukkit end
 
-    public InventoryBaby() {}
+    public InventoryBaby(iBabyAbilities abilities) {
+    	this.abilities = abilities;
+    }
 
     public int getSize() {
         return 27;
@@ -88,6 +98,9 @@ public class InventoryBaby implements IInventory {
 
     public void setItem(int i, ItemStack itemstack) {
         this.items[i] = itemstack;
+        //iBaby start -  validate stack
+        
+        //iBaby - end
         if (itemstack != null && itemstack.count > this.getMaxStackSize()) {
             itemstack.count = this.getMaxStackSize();
         }
@@ -131,7 +144,7 @@ public class InventoryBaby implements IInventory {
     }
 
     public int getMaxStackSize() {
-        return 64;
+        return 1; //iBaby - max stack size of 1
     }
 
     public void h() {
