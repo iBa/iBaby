@@ -1,5 +1,6 @@
 package com.iBaby.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -17,6 +18,8 @@ public class InvCommand extends Command {
 		if((target = iBaby.getSelectedBaby(((Player) sender).getName())) != null) {
 			CraftPlayer p = ((CraftPlayer)sender);
 			p.getHandle().openContainer(target.getIInventory());
+		}else{
+			sender.sendMessage(ChatColor.YELLOW + "Please select an iBaby by attacking it!");
 		}
 	}
 }

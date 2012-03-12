@@ -119,7 +119,7 @@ public class InventoryBaby implements IInventory {
             int j = nbttagcompound1.getByte("Slot") & 255;
 
             if (j >= 0 && j < this.items.length) {
-                this.items[j] = ItemStack.a(nbttagcompound1);
+                setItem(j, ItemStack.a(nbttagcompound1));
             }
         }
     }

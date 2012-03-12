@@ -112,4 +112,9 @@ public class iBabyAbilities {
 				this.removeAbility(handle);
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Ability> get() {
+		return new ArrayList<Ability>((ArrayList<Ability>) this.abilities.clone());
+	}
 }
