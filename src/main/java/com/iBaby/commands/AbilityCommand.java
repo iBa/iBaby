@@ -24,17 +24,17 @@ public class AbilityCommand extends Command {
 	 */
 	public void handle(CommandSender sender) {
 		EntityIronBaby target = null;
-		HashMap<Ability, Integer> lvls = new HashMap<Ability, Integer>();
+		HashMap<Class<?extends Ability>, Integer> lvls = new HashMap<Class<?extends Ability>, Integer>();
 		if((target = iBaby.getSelectedBaby(((Player) sender).getName())) != null) {
 			for(Ability ability : target.abilities.get()) {
-				if(!lvls.containsKey(ability)) {
-					lvls.put(ability, 1);
+				if(!lvls.containsKey(ability.getClass())) {
+					lvls.put(ability.getClass(), 1);
 				}else{
-					lvls.put(ability, lvls.get(ability) + 1);
+					lvls.put(ability.getClass(), lvls.get(ability.getClass()) + 1);
 				}
 			}
-			for(Map.Entry<Ability, Integer> key : lvls.entrySet()) {
-				sender.sendMessage(ChatColor.GRAY + key.getKey().getClass().toString() + ChatColor.BLUE + " " + key.getValue());
+			for(Map.Entry<Class<?extends Ability>, Integer> key : lvls.entrySet()) {
+				sender.sendMessage(ChatColor.GRAY + key.getKey().getName().replace("com.iBaby.abilities.", "") + ChatColor.BLUE + " " + key.getValue());
 			}
 		}else{
 			sender.sendMessage(ChatColor.YELLOW + "Please select an iBaby by attacking it!");
