@@ -13,6 +13,7 @@ import net.minecraft.server.PathfinderGoalSelector;
 
 import com.iBaby.abilities.Ability;
 import com.iBaby.abilities.ArmorAbility;
+import com.iBaby.abilities.DamageAbility;
 import com.iBaby.abilities.SprintAbility;
 import com.iBaby.abilities.ThrowAbility;
 import com.iBaby.reflection.EntityIronBaby;
@@ -126,7 +127,7 @@ public class iBabyAbilities {
 	 */
 	public void updateAbilities(ItemStack itemstack, boolean add) {
 		Ability handle = null;
-		Ability tmparmor = null;
+		Ability tmp = null;
 		/*
 		 * @ABILITY
 		 * Feather : ThrowAbility
@@ -148,10 +149,17 @@ public class iBabyAbilities {
 		 * or if cheap (@NERF) material Durability / 14
 		 * or if too OP (@NERF2) material Durability / 20
 		 */
-		else if((tmparmor = ArmorAbility.matches(itemstack)) != null) {
-			handle = tmparmor;
+		else if((tmp = ArmorAbility.matches(itemstack)) != null) {
+			handle = tmp;
 		}
-		
+		/**
+		 * @ABILITY
+		 * Weapons: DamageAbility
+		 * Calculation of Damage Value: hearts NO FLOATS
+		 */
+		else if((tmp = DamageAbility.matches(itemstack)) != null) {
+			handle = tmp;
+		}
 		if(handle != null) {
 			if(add)
 				this.addAbility(handle);
