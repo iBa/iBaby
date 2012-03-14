@@ -133,6 +133,7 @@ public class iBabyAbilities {
 		 * Chestplate: Armor
 		 * Calculation of Damage Value: Durabilty / 9
 		 */
+		/* LEATHER */
 		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_CHESTPLATE) {
 				handle = new ArmorAbility(9);
 		}
@@ -144,6 +145,19 @@ public class iBabyAbilities {
 		}
 		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_LEGGINGS) {
 				handle = new ArmorAbility(8);
+		}
+		/* GOLD */
+		else if(new CraftItemStack(itemstack).getType() == Material.GOLD_CHESTPLATE) {
+				handle = new ArmorAbility(12);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.GOLD_BOOTS) {
+				handle = new ArmorAbility(10);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.GOLD_HELMET) {
+				handle = new ArmorAbility(8);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.GOLD_LEGGINGS) {
+				handle = new ArmorAbility(11);
 		}
 		if(handle != null) {
 			if(add)
