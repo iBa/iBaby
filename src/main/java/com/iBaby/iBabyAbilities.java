@@ -117,7 +117,7 @@ public class iBabyAbilities {
 		Ability tmparmor = null;
 		/*
 		 * @ABILITY
-		 * Feather : Throw
+		 * Feather : ThrowAbility
 		 */
 		if(new CraftItemStack(itemstack).getType() == Material.FEATHER) {
 				handle = new ThrowAbility();
@@ -131,7 +131,7 @@ public class iBabyAbilities {
 		}
 		/**
 		 * @ABILITY
-		 * Chestplate: Armor
+		 * Armor: ArmorAbility
 		 * Calculation of Damage Value: Durabilty / 9 
 		 * or if cheap (@NERF) material Durability / 14
 		 * or if too OP (@NERF2) material Durability / 20
