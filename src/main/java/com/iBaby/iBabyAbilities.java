@@ -114,6 +114,7 @@ public class iBabyAbilities {
 	 */
 	public void updateAbilities(ItemStack itemstack, boolean add) {
 		Ability handle = null;
+		Ability tmparmor = null;
 		/*
 		 * @ABILITY
 		 * Feather : Throw
@@ -131,47 +132,12 @@ public class iBabyAbilities {
 		/**
 		 * @ABILITY
 		 * Chestplate: Armor
-		 * Calculation of Damage Value: Durabilty / 9
+		 * Calculation of Damage Value: Durabilty / 9 or if cheap (@CHEAP) material Durability / 14
 		 */
-		/* LEATHER */
-		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_CHESTPLATE) {
-				handle = new ArmorAbility(9);
+		else if((tmparmor = ArmorAbility.matches(itemstack)) != null) {
+			handle = tmparmor;
 		}
-		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_BOOTS) {
-				handle = new ArmorAbility(7);
-		}
-		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_HELMET) {
-				handle = new ArmorAbility(6);
-		}
-		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_LEGGINGS) {
-				handle = new ArmorAbility(8);
-		}
-		/* GOLD */
-		else if(new CraftItemStack(itemstack).getType() == Material.GOLD_CHESTPLATE) {
-				handle = new ArmorAbility(12);
-		}
-		else if(new CraftItemStack(itemstack).getType() == Material.GOLD_BOOTS) {
-				handle = new ArmorAbility(10);
-		}
-		else if(new CraftItemStack(itemstack).getType() == Material.GOLD_HELMET) {
-				handle = new ArmorAbility(8);
-		}
-		else if(new CraftItemStack(itemstack).getType() == Material.GOLD_LEGGINGS) {
-				handle = new ArmorAbility(11);
-		}
-		/* CHAIN */
-		else if(new CraftItemStack(itemstack).getType() == Material.CHAINMAIL_CHESTPLATE) {
-				handle = new ArmorAbility(26);
-		}
-		else if(new CraftItemStack(itemstack).getType() == Material.CHAINMAIL_BOOTS) {
-				handle = new ArmorAbility(21);
-		}
-		else if(new CraftItemStack(itemstack).getType() == Material.CHAINMAIL_HELMET) {
-				handle = new ArmorAbility(18);
-		}
-		else if(new CraftItemStack(itemstack).getType() == Material.CHAINMAIL_LEGGINGS) {
-				handle = new ArmorAbility(25);
-		}
+		
 		if(handle != null) {
 			if(add)
 				this.addAbility(handle);
