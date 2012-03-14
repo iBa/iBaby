@@ -4,6 +4,9 @@ public class Ability {
 	public int getAdditionalHealth() {
 		return 0; 
 	}
+	public int getAdditionalDamage() {
+		return 0;
+	}
 	public float getAdditionalThrowHeight() {
 		return 0.00F;
 	}

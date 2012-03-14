@@ -63,6 +63,18 @@ public class iBabyAbilities {
 	}
 	
 	/**
+	 * Gets the additional damage of an entity
+	 * @return int
+	 */
+	public int getAdditionalDamage() {
+		int basic = 0;
+		for(Ability ability : abilities) {
+			basic += ability.getAdditionalDamage();
+		}
+		return basic;
+	}
+	
+	/**
 	 * Gets the additional height, the golem will throw entitys 
 	 * @return Float, see above
 	 */

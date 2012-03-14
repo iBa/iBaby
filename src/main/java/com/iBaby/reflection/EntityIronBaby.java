@@ -230,7 +230,7 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
     	}
         
         this.world.broadcastEntityEffect(this, (byte) 4);
-        boolean flag = entity.damageEntity(DamageSource.mobAttack(this), 7 + this.random.nextInt(15));
+        boolean flag = entity.damageEntity(DamageSource.mobAttack(this), 7 + this.random.nextInt(15) + this.abilities.getAdditionalDamage()); //iBaby - Deal additional damage
 
         if (flag) {
             entity.motY += 0.521D + this.abilities.getAdditionalThrowHeight(); //custom
