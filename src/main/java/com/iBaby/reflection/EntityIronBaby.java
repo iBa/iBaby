@@ -34,6 +34,7 @@ import net.minecraft.server.PathfinderGoalMoveTowardsTarget;
 import net.minecraft.server.PathfinderGoalNearestAttackableTarget;
 import net.minecraft.server.PathfinderGoalRandomLookaround;
 import net.minecraft.server.PathfinderGoalRandomStroll;
+import net.minecraft.server.PathfinderGoalSelector;
 import net.minecraft.server.Village;
 import net.minecraft.server.World;
 
@@ -49,19 +50,14 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
 	private String customName = "";
 	public iBabyAbilities abilities;
 	private InventoryBaby inventory;
-	//MOB AI implementation
-	//TODO Implement Ability stuff somehow
-	private PathfinderGoalMeleeAttack meleeAttackGoal = new PathfinderGoalMeleeAttack(this, 0.42F, true);
-	private PathfinderGoalMoveTowardsTarget moveTowardsTarget = new PathfinderGoalMoveTowardsTarget(this, 0.37F, 32.0F);
-	private PathfinderFollowBaby followBabyGoal = new PathfinderFollowBaby(this, 0.3F, 5.0F, 4.0F);
 	
 	public int p = -1;
     
 	public EntityIronBaby(World world, String owner) {
 		super(world);
 		this.owner = owner;
-		this.abilities = new iBabyAbilities();
-		System.out.println(this.abilities);
+		this.abilities = new iBabyAbilities(this);
+		
 		this.inventory = new InventoryBaby(this.abilities);
 		// Imported from EntityIronGolem.java
 		this.texture = "/mob/villager_golem.png";
@@ -69,10 +65,10 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
         this.ak().a(true);
         this.fireProof = true;
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
-		this.goalSelector.a(1, meleeAttackGoal);
-	    this.goalSelector.a(2, moveTowardsTarget);
+		this.goalSelector.a(1, new PathfinderGoalMeleeAttack(this, 0.42F, true));
+	    this.goalSelector.a(2, new PathfinderGoalMoveTowardsTarget(this, 0.37F, 32.0F));
 	    //this.goalSelector.a(3, new PathfinderGoalMoveThroughVillage(this, 0.16F, true));
-	    this.goalSelector.a(3, followBabyGoal);
+	    this.goalSelector.a(3, new PathfinderFollowBaby(this, 0.3F, 5.0F, 4.0F));
 	    this.goalSelector.a(4, new PathfinderGoalMoveTowardsRestriction(this, 0.16F));
 	    //this.goalSelector.a(5, new PathfinderGoalOfferFlower(this));
 	    this.goalSelector.a(6, new PathfinderGoalRandomStroll(this, f));
@@ -324,6 +320,14 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
 
 	public IInventory getIInventory() {
 		return this.inventory; 
+	}
+
+	public PathfinderGoalSelector getGoalSelector() {
+		return this.goalSelector;
+	}
+	
+	public void setGoalSelector(PathfinderGoalSelector e) {
+		this.goalSelector = e;
 	}
    
     /* END Imported Stuff */

@@ -1,14 +1,20 @@
 package com.iBaby;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 
 import net.minecraft.server.ItemStack;
+import net.minecraft.server.PathfinderGoalMeleeAttack;
+import net.minecraft.server.PathfinderGoalMoveTowardsTarget;
+import net.minecraft.server.PathfinderGoalSelector;
 
 import com.iBaby.abilities.Ability;
 import com.iBaby.abilities.ThrowAbility;
+import com.iBaby.reflection.EntityIronBaby;
+import com.iBaby.reflection.PathfinderFollowBaby;
 
 /**
  * Class which manages all special abilities of iBabys
@@ -17,7 +23,15 @@ import com.iBaby.abilities.ThrowAbility;
  */
 public class iBabyAbilities {
 	private ArrayList<Ability> abilities = new ArrayList<Ability>();
+	private EntityIronBaby entity;
 	
+	/**
+	 * Public Constructor
+	 * @param baby The entity which represents an iBaby
+	 */
+	public iBabyAbilities(EntityIronBaby baby) {
+		this.entity = baby;
+	}
 	/**
 	 * Adds an ability
 	 * @param ability instanceof Ability
@@ -111,8 +125,32 @@ public class iBabyAbilities {
 			else
 				this.removeAbility(handle);
 		}
+		updatePathFinders();
 	}
 
+	/**
+	 * Update the path finders
+	 */
+	@SuppressWarnings("unchecked")
+	private void updatePathFinders() {
+		float additionalMelee = getAdditionalMeleeMovementSpeed();
+		float additionalFollow = getAdditionalFollowBabySpeed();
+		float additionalTowards = getAdditionalMoveTowardsTargetSpeed();
+		//Reflection...
+		PathfinderGoalSelector GS = entity.getGoalSelector();
+		try{
+			Field aField = GS.getClass().getDeclaredField("a");
+			aField.setAccessible(true);
+			@SuppressWarnings("rawtypes")
+			ArrayList a = (ArrayList) aField.get(GS);
+			a.set(1, new PathfinderGoalMeleeAttack(this.entity, 0.42F + additionalMelee, true));
+			a.set(2, new PathfinderGoalMoveTowardsTarget(this.entity, 0.37F + additionalTowards, 32.0F));
+			a.set(3, new PathfinderFollowBaby(this.entity, 0.3F + additionalFollow, 5.0F, 4.0F));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Ability> get() {
 		return new ArrayList<Ability>((ArrayList<Ability>) this.abilities.clone());
