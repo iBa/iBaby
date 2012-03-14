@@ -6,7 +6,12 @@ package com.iBaby.abilities;
  *
  */
 public class ArmorAbility extends Ability {
+	private int health = 0;
+	
+	public ArmorAbility(int h) {
+		this.health = h;
+	}
 	public int getAdditionalHealth() {
-		return 6;
+		return health;
 	}
 }

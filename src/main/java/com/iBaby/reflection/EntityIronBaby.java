@@ -41,7 +41,6 @@ import net.minecraft.server.World;
 public class EntityIronBaby extends EntityGolem implements InventoryHolder {
 	private String owner;
 	// Imported from EntityIronGolem.java
-	private int b = 0;
     private int c;
     private int g;
 	//END

@@ -12,6 +12,8 @@ import net.minecraft.server.PathfinderGoalMoveTowardsTarget;
 import net.minecraft.server.PathfinderGoalSelector;
 
 import com.iBaby.abilities.Ability;
+import com.iBaby.abilities.ArmorAbility;
+import com.iBaby.abilities.SprintAbility;
 import com.iBaby.abilities.ThrowAbility;
 import com.iBaby.reflection.EntityIronBaby;
 import com.iBaby.reflection.PathfinderFollowBaby;
@@ -118,6 +120,30 @@ public class iBabyAbilities {
 		 */
 		if(new CraftItemStack(itemstack).getType() == Material.FEATHER) {
 				handle = new ThrowAbility();
+		}
+		/**
+		 * @ABILITY
+		 * Water-Bucket:Sprint
+		 */
+		else if(new CraftItemStack(itemstack).getType() == Material.WATER_BUCKET) {
+				handle = new SprintAbility();
+		}
+		/**
+		 * @ABILITY
+		 * Chestplate: Armor
+		 * Calculation of Damage Value: Durabilty / 9
+		 */
+		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_CHESTPLATE) {
+				handle = new ArmorAbility(9);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_BOOTS) {
+				handle = new ArmorAbility(7);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_HELMET) {
+				handle = new ArmorAbility(6);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.LEATHER_LEGGINGS) {
+				handle = new ArmorAbility(8);
 		}
 		if(handle != null) {
 			if(add)
