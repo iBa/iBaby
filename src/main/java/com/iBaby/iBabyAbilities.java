@@ -132,7 +132,9 @@ public class iBabyAbilities {
 		/**
 		 * @ABILITY
 		 * Chestplate: Armor
-		 * Calculation of Damage Value: Durabilty / 9 or if cheap (@CHEAP) material Durability / 14
+		 * Calculation of Damage Value: Durabilty / 9 
+		 * or if cheap (@NERF) material Durability / 14
+		 * or if too OP (@NERF2) material Durability / 20
 		 */
 		else if((tmparmor = ArmorAbility.matches(itemstack)) != null) {
 			handle = tmparmor;

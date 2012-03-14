@@ -65,7 +65,7 @@ public class ArmorAbility extends Ability {
 		else if(new CraftItemStack(itemstack).getType() == Material.CHAINMAIL_LEGGINGS) {
 				handle = new ArmorAbility(25);
 		}
-		/* Iron @CHEAP */
+		/* Iron @NERF */
 		else if(new CraftItemStack(itemstack).getType() == Material.IRON_CHESTPLATE) {
 				handle = new ArmorAbility(17);
 		}
@@ -77,6 +77,19 @@ public class ArmorAbility extends Ability {
 		}
 		else if(new CraftItemStack(itemstack).getType() == Material.IRON_LEGGINGS) {
 				handle = new ArmorAbility(15);
+		}
+		/* Diamond @NERF2 */
+		else if(new CraftItemStack(itemstack).getType() == Material.DIAMOND_CHESTPLATE) {
+				handle = new ArmorAbility(26);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.DIAMOND_BOOTS) {
+				handle = new ArmorAbility(21);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.DIAMOND_HELMET) {
+				handle = new ArmorAbility(18);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.DIAMOND_LEGGINGS) {
+				handle = new ArmorAbility(23);
 		}
 		return handle;
 	}
