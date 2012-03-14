@@ -159,6 +159,19 @@ public class iBabyAbilities {
 		else if(new CraftItemStack(itemstack).getType() == Material.GOLD_LEGGINGS) {
 				handle = new ArmorAbility(11);
 		}
+		/* CHAIN */
+		else if(new CraftItemStack(itemstack).getType() == Material.CHAINMAIL_CHESTPLATE) {
+				handle = new ArmorAbility(26);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.CHAINMAIL_BOOTS) {
+				handle = new ArmorAbility(21);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.CHAINMAIL_HELMET) {
+				handle = new ArmorAbility(18);
+		}
+		else if(new CraftItemStack(itemstack).getType() == Material.CHAINMAIL_LEGGINGS) {
+				handle = new ArmorAbility(25);
+		}
 		if(handle != null) {
 			if(add)
 				this.addAbility(handle);
