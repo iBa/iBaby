@@ -59,6 +59,7 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
 		
 		this.inventory = new InventoryBaby(this.abilities);
 		// Imported from EntityIronGolem.java
+		// removed 3 Goal/Target Pathfinders
 		this.texture = "/mob/villager_golem.png";
         this.b(1.4F, 2.9F);
         this.ak().a(true);
@@ -66,14 +67,11 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
 		this.goalSelector.a(1, new PathfinderGoalMeleeAttack(this, 0.42F, true));
 	    this.goalSelector.a(2, new PathfinderGoalMoveTowardsTarget(this, 0.37F, 32.0F));
-	    //this.goalSelector.a(3, new PathfinderGoalMoveThroughVillage(this, 0.16F, true));
 	    this.goalSelector.a(3, new PathfinderFollowBaby(this, 0.3F, 5.0F, 4.0F));
 	    this.goalSelector.a(4, new PathfinderGoalMoveTowardsRestriction(this, 0.16F));
-	    //this.goalSelector.a(5, new PathfinderGoalOfferFlower(this));
 	    this.goalSelector.a(6, new PathfinderGoalRandomStroll(this, f));
 	    this.goalSelector.a(7, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 6.0F));
 	    this.goalSelector.a(8, new PathfinderGoalRandomLookaround(this));
-	    //this.targetSelector.a(1, new PathfinderGoalDefendVillage(this));
 	    this.targetSelector.a(1, new PathfinderGoalBabysit(this));
 	    this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false));
 	    this.targetSelector.a(3, new PathfinderGoalNearestAttackableTarget(this, EntityMonster.class, 16.0F, 0, false, true));
