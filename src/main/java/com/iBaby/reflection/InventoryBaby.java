@@ -166,4 +166,7 @@ public class InventoryBaby implements IInventory {
 	}
 
 	public void update() { }
+
+	@Override
+	public void setMaxStackSize(int arg0) { /* Ignore input */ }
 }

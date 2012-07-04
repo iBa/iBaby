@@ -17,16 +17,15 @@
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
-			<version>1.2.3-R0.2-SNAPSHOT</version>
+			<version>1.2.5-R4.0</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
-            <version>1.28</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/../Vault.jar</systemPath>
+            <version>1.2.16</version>
+            <scope>compile</scope>
         </dependency>
        <dependency>
         <groupId>junit</groupId>

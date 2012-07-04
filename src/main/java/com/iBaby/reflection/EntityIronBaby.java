@@ -62,7 +62,7 @@ public class EntityIronBaby extends EntityGolem implements InventoryHolder {
 		// removed 3 Goal/Target Pathfinders
 		this.texture = "/mob/villager_golem.png";
         this.b(1.4F, 2.9F);
-        this.ak().a(true);
+        this.al().a(true);
         this.fireProof = true;
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
 		this.goalSelector.a(1, new PathfinderGoalMeleeAttack(this, 0.42F, true));

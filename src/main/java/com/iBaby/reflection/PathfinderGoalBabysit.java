@@ -20,7 +20,7 @@ public class PathfinderGoalBabysit extends PathfinderGoalTarget {
 	public boolean a() {
 		if(Bukkit.getPlayer(this.entity.getOwner()) != null && this.entity.getOwner() != null) {
 			EntityPlayer player = ((CraftPlayer) Bukkit.getPlayer(this.entity.getOwner())).getHandle();
-			lastTarget = player.an();
+			lastTarget = player.ao();
 		}
 		return this.a(this.lastTarget, false);
 	}
