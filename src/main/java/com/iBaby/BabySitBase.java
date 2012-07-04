@@ -9,6 +9,7 @@ import com.iBaby.commands.SummonCommand;
 public class BabySitBase extends Base {
 	public BabySitBase() {
 		addCommand("help", new HelpCommand());
+		addCommand("", new HelpCommand()); //Map to HELP
 		addCommand("summon", new SummonCommand());
 		addCommand("name", new NameCommand());
 		addCommand("inv", new InvCommand());

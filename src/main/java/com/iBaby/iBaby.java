@@ -57,6 +57,9 @@ public class iBaby extends JavaPlugin {
 		 }
 		getServer().getPluginManager().registerEvents(new iBabyListener(), this);
 		//Loading config
+		if(!getDataFolder().exists())
+			if(!getDataFolder().mkdir())
+				log("Error while mkdir of iBaby");
 		configFile = new File(getDataFolder(), "config.yml");
 		if(configFile.exists()) {
 			Configuration.init(configFile);

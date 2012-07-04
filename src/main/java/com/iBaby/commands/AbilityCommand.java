@@ -36,8 +36,17 @@ public class AbilityCommand extends Command {
 			for(Map.Entry<Class<?extends Ability>, Integer> key : lvls.entrySet()) {
 				sender.sendMessage(ChatColor.GRAY + key.getKey().getName().replace("com.iBaby.abilities.", "") + ChatColor.BLUE + " " + key.getValue());
 			}
+			if(lvls.entrySet().size() == 0)
+			{
+				sender.sendMessage(ChatColor.RED + "Your Iron Baby doesn't know any abilities");
+			}
 		}else{
 			sender.sendMessage(ChatColor.YELLOW + "Please select an iBaby by attacking it!");
 		}
+	}
+	
+	public String getDescription()
+	{
+		return "Shows the abilities a selected iBaby has";
 	}
 }

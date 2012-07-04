@@ -34,4 +34,9 @@ public class NameCommand extends Command {
 			sender.sendMessage(ChatColor.YELLOW + "Please select an iBaby by attacking it!");
 		}
 	}
+	
+	public String getDescription()
+	{
+		return "Give a selected iBaby a name";
+	}
 }

@@ -126,7 +126,7 @@ public class Command {
 	 * @return String
 	 */
 	public String getDescription() {
-		return null;
+		return "";
 	}
 	@SuppressWarnings("unchecked")
 	public HashMap<String, String> getArgumentMap() {

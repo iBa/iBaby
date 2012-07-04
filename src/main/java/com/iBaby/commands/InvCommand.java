@@ -22,4 +22,9 @@ public class InvCommand extends Command {
 			sender.sendMessage(ChatColor.YELLOW + "Please select an iBaby by attacking it!");
 		}
 	}
+	
+	public String getDescription()
+	{
+		return "Shows the inventory of a selected iBaby";
+	}
 }
